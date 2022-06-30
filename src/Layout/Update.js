@@ -2,13 +2,10 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import fetcher from './Axios.config';
 import { toast } from 'react-toastify';
-import { useQuery } from 'react-query';
 
-const AddBill = () => {
+const Update = () => {
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
-
-
 
     const onSubmit = data => {
         const bill = {
@@ -28,10 +25,10 @@ const AddBill = () => {
 
     return (
         <div>
-            <input type="checkbox" id="add-modal" className="modal-toggle" />
+            <input type="checkbox" id="update-modal" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
-                    <label htmlFor="add-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <label htmlFor="update-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="font-bold text-lg text-primary">Please Add a new Bill</h3>
 
                     <form onSubmit={handleSubmit(onSubmit)} className=' gap-3 justify-items-center mt-5' >
@@ -104,4 +101,4 @@ const AddBill = () => {
     );
 };
 
-export default AddBill;
+export default Update;

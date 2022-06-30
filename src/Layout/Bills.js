@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import fetcher from './Axios.config';
 import DeleteBill from './DeleteBill';
+import Update from './Update';
 
 const Bills = () => {
     const [bills, setBills] = useState([]);
@@ -61,7 +62,7 @@ const Bills = () => {
                                     <td>
                                         <label
                                             // onClick={() => setDeleteProduct(tool)}
-                                            htmlFor="delete-bill-modal"
+                                            htmlFor="update-modal"
                                             className="btn btn-primary btn-xs mr-2"
                                         >
                                             Edit
@@ -107,6 +108,7 @@ const Bills = () => {
                     <button class="btn btn-sm">4</button>
                 </div>
             </div> */}
+            <Update />
         </div>
     );
 };
