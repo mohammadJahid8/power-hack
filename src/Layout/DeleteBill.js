@@ -1,30 +1,30 @@
 import React from "react";
-import { toast } from "react-toastify";
-import fetcher from "../../../Shared/api/axios.config";
+// import { toast } from "react-toastify";
+// import fetcher from "../../../Shared/api/axios.config";
 
-const DeleteProductModal = ({
+const DeleteBill = ({
     deleteProduct,
     tools,
     setDeleteProduct,
     refetch,
 }) => {
-    const { name, _id } = deleteProduct;
+    // const { name, _id } = deleteProduct;
 
-    const handleDeleteItem = (id) => {
-        const res = fetcher.delete(`/tool/${id}`);
-        // setOrders(res.data);
-        toast.success(`${name} has been deleted from your cart`);
-        refetch();
-        setDeleteProduct(null);
-        // const remainingOrders = orders.filter((order) => order._id !== id);
-        // setOrders(remainingOrders);
-    };
+    // const handleDeleteItem = (id) => {
+    //     const res = fetcher.delete(`/tool/${id}`);
+    //     // setOrders(res.data);
+    //     toast.success(`${name} has been deleted from your cart`);
+    //     refetch();
+    //     setDeleteProduct(null);
+    //     // const remainingOrders = orders.filter((order) => order._id !== id);
+    //     // setOrders(remainingOrders);
+    // };
 
     return (
         <div>
             <input
                 type="checkbox"
-                id="delete-product-modal"
+                id="delete-bill-modal"
                 className="modal-toggle"
             />
             <div className="modal modal-bottom sm:modal-middle">
@@ -32,15 +32,15 @@ const DeleteProductModal = ({
                     <h3 className="font-bold text-lg text-red-500">
                         Are you sure you want to cancel this order?
                     </h3>
-                    <p className="py-4">Product Name: {name}</p>
+                    {/* <p className="py-4">Product Name: {name}</p> */}
                     <div className="modal-action">
                         <button
-                            onClick={() => handleDeleteItem(_id)}
+                            // onClick={() => handleDeleteItem(_id)}
                             className="btn btn-error btn-sm w-20"
                         >
                             Yes
                         </button>
-                        <label htmlFor="delete-product-modal" className="btn btn-sm w-20">
+                        <label htmlFor="delete-bill-modal" className="btn btn-sm w-20">
                             No!!
                         </label>
                     </div>
@@ -50,4 +50,4 @@ const DeleteProductModal = ({
     );
 };
 
-export default DeleteProductModal;
+export default DeleteBill;
