@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import fetcher from './Axios.config';
 import DeleteBill from './DeleteBill';
 
 const Bills = () => {
+    const [limit, setLimit] = useState(10);
+    const [pageNumber, setPageNumber] = useState(0);
 
     //data loaded from database by axios custom api using react query
-    const { data, isLoading } = useQuery("tools", () =>
-        fetcher.get("/billing-list")
+    const { data, isLoading, refetch } = useQuery("tools", () =>
+        fetcher.get(`/billing-list?limit=${limit}&pageNumber=${pageNumber}`)
     );
+    refetch();
 
     const bills = data?.data;
 
@@ -60,6 +63,14 @@ const Bills = () => {
                     </tbody>
 
                 </table>
+                <div className="flex justify-center my-4">
+                    {
+                        [...Array(2).keys()].map(n => <div onClick={() => setPageNumber(n)} className={`mx-3 border border-black px-3 py-1 cursor-pointer hover:text-white hover:bg-black ${pageNumber === n ? "bg-black text-white" : " "}`}>
+                            {n + 1}
+                        </div>)
+                    }
+                </div>
+
             </div>
             {/* {deleteProduct && ( */}
             <DeleteBill
@@ -70,14 +81,14 @@ const Bills = () => {
             />
             {/* )} */}
 
-            <div>
+            {/* <div>
                 <div class="btn-group justify-center rounded-none">
                     <button class="btn btn-sm">1</button>
                     <button class="btn btn-sm btn-active">2</button>
                     <button class="btn btn-sm">3</button>
                     <button class="btn btn-sm">4</button>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
