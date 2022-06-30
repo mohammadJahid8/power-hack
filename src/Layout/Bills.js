@@ -1,7 +1,18 @@
 import React from 'react';
+import { useQuery } from 'react-query';
+import fetcher from './Axios.config';
 import DeleteBill from './DeleteBill';
 
 const Bills = () => {
+
+    //data loaded from database by axios custom api using react query
+    const { data, isLoading } = useQuery("tools", () =>
+        fetcher.get("/billing-list")
+    );
+
+    const bills = data?.data;
+
+
     return (
         <div>
             <div class="overflow-x-auto rounded-none">
@@ -18,29 +29,33 @@ const Bills = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>Littel, Schaden and Vandervort</td>
-                            <td>Canada</td>
-                            <td>
-                                <label
-                                    // onClick={() => setDeleteProduct(tool)}
-                                    htmlFor="delete-bill-modal"
-                                    className="btn btn-primary btn-xs mr-2"
-                                >
-                                    Edit
-                                </label>
-                                <label
-                                    // onClick={() => setDeleteProduct(tool)}
-                                    htmlFor="delete-bill-modal"
-                                    className="btn btn-error btn-xs "
-                                >
-                                    Delete
-                                </label>
-                            </td>
-                        </tr>
+                        {
+                            bills?.map(bill =>
+                                <tr>
+                                    <th>{bill._id}</th>
+                                    <td>{bill.name}</td>
+                                    <td>{bill.email}</td>
+                                    <td>{bill.phone}</td>
+                                    <td>{bill.paidAmount}</td>
+                                    <td>
+                                        <label
+                                            // onClick={() => setDeleteProduct(tool)}
+                                            htmlFor="delete-bill-modal"
+                                            className="btn btn-primary btn-xs mr-2"
+                                        >
+                                            Edit
+                                        </label>
+                                        <label
+                                            // onClick={() => setDeleteProduct(tool)}
+                                            htmlFor="delete-bill-modal"
+                                            className="btn btn-error btn-xs "
+                                        >
+                                            Delete
+                                        </label>
+                                    </td>
+                                </tr>
+                            )}
+
 
                     </tbody>
 
