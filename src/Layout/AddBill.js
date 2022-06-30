@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import fetcher from './Axios.config';
 import { toast } from 'react-toastify';
@@ -7,10 +7,11 @@ import { useQuery } from 'react-query';
 const AddBill = () => {
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
-
+    const [modal, setModal] = useState(false);
 
 
     const onSubmit = data => {
+        console.log(data);
         const bill = {
             name: data.name,
             email: data.email,

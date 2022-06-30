@@ -1,24 +1,21 @@
-import React from "react";
-// import { toast } from "react-toastify";
+import React, { useEffect, useState } from "react";
+import fetcher from "./Axios.config";
+import { toast } from "react-toastify";
 // import fetcher from "../../../Shared/api/axios.config";
 
 const DeleteBill = ({
-    deleteProduct,
-    tools,
-    setDeleteProduct,
+    id,
     refetch,
+    setDeleteBill,
+    deleteBill,
+    handleDeleteItem
 }) => {
-    // const { name, _id } = deleteProduct;
+    // console.log(deleteBill?._id);
+    // const { _id } = deleteBill;
 
-    // const handleDeleteItem = (id) => {
-    //     const res = fetcher.delete(`/tool/${id}`);
-    //     // setOrders(res.data);
-    //     toast.success(`${name} has been deleted from your cart`);
-    //     refetch();
-    //     setDeleteProduct(null);
-    //     // const remainingOrders = orders.filter((order) => order._id !== id);
-    //     // setOrders(remainingOrders);
-    // };
+
+
+
 
     return (
         <div>
@@ -32,21 +29,23 @@ const DeleteBill = ({
                     <h3 className="font-bold text-lg text-red-500">
                         Are you sure you want to cancel this order?
                     </h3>
-                    {/* <p className="py-4">Product Name: {name}</p> */}
                     <div className="modal-action">
                         <button
-                            // onClick={() => handleDeleteItem(_id)}
-                            className="btn btn-error btn-sm w-20"
+                            onClick={() => handleDeleteItem(deleteBill?._id)}
+
                         >
-                            Yes
+                            <label htmlFor="delete-bill-modal" className="btn bg-error btn-sm w-20">
+                                Yes!
+                            </label>
                         </button>
+
                         <label htmlFor="delete-bill-modal" className="btn btn-sm w-20">
                             No!!
                         </label>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

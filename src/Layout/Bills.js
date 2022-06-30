@@ -3,36 +3,67 @@ import { useQuery } from 'react-query';
 import fetcher from './Axios.config';
 import DeleteBill from './DeleteBill';
 import Update from './Update';
+import { toast } from "react-toastify";
 
 const Bills = () => {
+    const [deleteBill, setDeleteBill] = useState(null);
     const [bills, setBills] = useState([]);
     const [limit, setLimit] = useState(10);
     const [pageNumber, setPageNumber] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
-    console.log(totalPages);
+    const [id, setId] = useState(null);
+    // console.log(totalPages);
+
 
     // data loaded from database by axios custom api using react query
     // const { data, isLoading, refetch } = useQuery("tools", () =>
     //     fetcher.get(`/billing-list?limit=${limit}&pageNumber=${pageNumber}`)
     // );
+    // console.log(data);
+    // const bill = data?.data?.bills;
+    // console.log(bill);
+    // const count = data?.data?.totalBills;
+    // console.log(count)
+    // const array = (Math.ceil(count / limit));
+    // // setTotalPages(10);
+    // console.log([...Array(array).keys()])
+
+    // setTotalPages(Math.ceil(count / limit));
     // setTotalPages(Math.ceil(data?.totalBills / limit));
-    // // const a = (Math.ceil(data?.data?.totalBills / limit));
-    // // const totalBillCount = ;
-    // // console.log(totalBillCount);
+    // const a = (Math.ceil(data?.data?.totalBills / limit));
+    // const totalBillCount = ;
+    // console.log(totalBillCount);
     // const bills = data?.data?.bills;
     // refetch();
 
+    const [reload, setReload] = useState(false);
 
     useEffect(() => {
         (async () => {
             const { data } = await fetcher.get(`/billing-list?limit=${limit}&pageNumber=${pageNumber}`);
-
             setBills(data.bills);
             setTotalPages(Math.ceil(data?.totalBills / limit));
+            setReload(!reload)
 
             // console.log(bills);
         })();
-    }, [limit, pageNumber]);
+    }, [limit, pageNumber, reload]);
+
+    const handleDeleteItem = (id) => {
+        const res = fetcher.delete(`/delete-billing/${id}`);
+        // setOrders(res.data);
+        toast.success(`Bill has been deleted successfully`);
+        setReload(!reload)
+        // refetch();
+        // setDeleteBill(null)
+        // setDeleteProduct(null);
+        // const remainingOrders = orders.filter((order) => order._id !== id);
+        // setOrders(remainingOrders);
+    }
+
+    const setLocal = () => {
+
+    }
 
 
     return (
@@ -52,7 +83,7 @@ const Bills = () => {
                     </thead>
                     <tbody>
                         {
-                            bills?.map(bill =>
+                            bills?.map(bill => <>
                                 <tr>
                                     <th>{bill._id}</th>
                                     <td>{bill.name}</td>
@@ -61,21 +92,24 @@ const Bills = () => {
                                     <td>{bill.paidAmount}</td>
                                     <td>
                                         <label
-                                            // onClick={() => setDeleteProduct(tool)}
+                                            onClick={() => setId(bill._id)}
                                             htmlFor="update-modal"
                                             className="btn btn-primary btn-xs mr-2"
                                         >
                                             Edit
                                         </label>
                                         <label
-                                            // onClick={() => setDeleteProduct(tool)}
+                                            onClick={() => setDeleteBill(bill)}
                                             htmlFor="delete-bill-modal"
                                             className="btn btn-error btn-xs "
                                         >
                                             Delete
                                         </label>
                                     </td>
+
                                 </tr>
+
+                            </>
                             )}
 
 
@@ -93,22 +127,16 @@ const Bills = () => {
             </div>
             {/* {deleteProduct && ( */}
             <DeleteBill
-            // deleteProduct={deleteProduct}
-            // tools={tools?.data}
-            // setDeleteProduct={setDeleteProduct}
+                // id={id}
+                deleteBill={deleteBill}
+                handleDeleteItem={handleDeleteItem}
+                setDeleteBill={setDeleteBill}
             // refetch={refetch}
             />
             {/* )} */}
 
-            {/* <div>
-                <div class="btn-group justify-center rounded-none">
-                    <button class="btn btn-sm">1</button>
-                    <button class="btn btn-sm btn-active">2</button>
-                    <button class="btn btn-sm">3</button>
-                    <button class="btn btn-sm">4</button>
-                </div>
-            </div> */}
-            <Update />
+
+            <Update id={id} />
         </div>
     );
 };

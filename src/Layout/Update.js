@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import fetcher from './Axios.config';
 import { toast } from 'react-toastify';
 
-const Update = () => {
+const Update = ({ id }) => {
+
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
@@ -14,12 +15,25 @@ const Update = () => {
             phone: data.phone,
             paidAmount: parseInt(data.amount),
         }
-        const res = fetcher.post("/add-billing", bill);
-
-
-        toast.success("New bill added!!", {
+        const res = fetcher.put(`/update-billing/${id}`, bill);
+        toast.success("Bill Updated", {
             position: toast.POSITION.TOP_CENTER,
         });
+        // res.then((response) => {
+        //     const { data } = response;
+
+        //     if (data?.result?.modifiedCount > 0) {
+        //         // refetch();
+        //         toast.success("Profile Updated", {
+        //             position: toast.POSITION.TOP_CENTER,
+        //         });
+        //     }
+        //     else {
+        //         toast.error("something went wrong", {
+        //             position: toast.POSITION.TOP_CENTER,
+        //         })
+        //     }
+        // });
         reset();
     }
 
@@ -29,7 +43,7 @@ const Update = () => {
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
                     <label htmlFor="update-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 className="font-bold text-lg text-primary">Please Add a new Bill</h3>
+                    <h3 className="font-bold text-lg text-primary">Update Bill!</h3>
 
                     <form onSubmit={handleSubmit(onSubmit)} className=' gap-3 justify-items-center mt-5' >
                         <input type="text" placeholder='Full Name' className="input input-bordered w-full max-w-lg"
