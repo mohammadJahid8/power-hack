@@ -1,19 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import fetcher from './Axios.config';
 import DeleteBill from './DeleteBill';
 
 const Bills = () => {
+    const [bills, setBills] = useState([]);
     const [limit, setLimit] = useState(10);
     const [pageNumber, setPageNumber] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
+    console.log(totalPages);
 
-    //data loaded from database by axios custom api using react query
-    const { data, isLoading, refetch } = useQuery("tools", () =>
-        fetcher.get(`/billing-list?limit=${limit}&pageNumber=${pageNumber}`)
-    );
-    refetch();
+    // data loaded from database by axios custom api using react query
+    // const { data, isLoading, refetch } = useQuery("tools", () =>
+    //     fetcher.get(`/billing-list?limit=${limit}&pageNumber=${pageNumber}`)
+    // );
+    // setTotalPages(Math.ceil(data?.totalBills / limit));
+    // // const a = (Math.ceil(data?.data?.totalBills / limit));
+    // // const totalBillCount = ;
+    // // console.log(totalBillCount);
+    // const bills = data?.data?.bills;
+    // refetch();
 
-    const bills = data?.data;
+
+    useEffect(() => {
+        (async () => {
+            const { data } = await fetcher.get(`/billing-list?limit=${limit}&pageNumber=${pageNumber}`);
+
+            setBills(data.bills);
+            setTotalPages(Math.ceil(data?.totalBills / limit));
+
+            // console.log(bills);
+        })();
+    }, [limit, pageNumber]);
 
 
     return (
@@ -65,7 +83,7 @@ const Bills = () => {
                 </table>
                 <div className="flex justify-center my-4">
                     {
-                        [...Array(2).keys()].map(n => <div onClick={() => setPageNumber(n)} className={`mx-3 border border-black px-3 py-1 cursor-pointer hover:text-white hover:bg-black ${pageNumber === n ? "bg-black text-white" : " "}`}>
+                        [...Array(totalPages).keys()].map(n => <div onClick={() => setPageNumber(n)} className={`mx-3 border border-black px-3 py-1 cursor-pointer hover:text-white hover:bg-black ${pageNumber === n ? "bg-black text-white" : " "}`}>
                             {n + 1}
                         </div>)
                     }
