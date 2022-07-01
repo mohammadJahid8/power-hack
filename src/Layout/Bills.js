@@ -14,28 +14,6 @@ const Bills = () => {
     const [id, setId] = useState(null);
     // console.log(totalPages);
 
-
-    // data loaded from database by axios custom api using react query
-    // const { data, isLoading, refetch } = useQuery("tools", () =>
-    //     fetcher.get(`/billing-list?limit=${limit}&pageNumber=${pageNumber}`)
-    // );
-    // console.log(data);
-    // const bill = data?.data?.bills;
-    // console.log(bill);
-    // const count = data?.data?.totalBills;
-    // console.log(count)
-    // const array = (Math.ceil(count / limit));
-    // // setTotalPages(10);
-    // console.log([...Array(array).keys()])
-
-    // setTotalPages(Math.ceil(count / limit));
-    // setTotalPages(Math.ceil(data?.totalBills / limit));
-    // const a = (Math.ceil(data?.data?.totalBills / limit));
-    // const totalBillCount = ;
-    // console.log(totalBillCount);
-    // const bills = data?.data?.bills;
-    // refetch();
-
     const [reload, setReload] = useState(false);
 
     useEffect(() => {
@@ -53,7 +31,6 @@ const Bills = () => {
         setReload(!reload)
 
     }
-    // console.log(bills?.reverse());
 
 
     return (
@@ -73,7 +50,7 @@ const Bills = () => {
                     </thead>
                     <tbody>
                         {
-                            bills?.reverse().map(bill => <>
+                            bills?.map(bill => <>
                                 <tr>
                                     <th>{bill._id}</th>
                                     <td>{bill.name}</td>

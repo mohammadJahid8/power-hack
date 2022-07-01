@@ -19,21 +19,7 @@ const Update = ({ id }) => {
         toast.success("Bill Updated", {
             position: toast.POSITION.TOP_CENTER,
         });
-        // res.then((response) => {
-        //     const { data } = response;
 
-        //     if (data?.result?.modifiedCount > 0) {
-        //         // refetch();
-        //         toast.success("Profile Updated", {
-        //             position: toast.POSITION.TOP_CENTER,
-        //         });
-        //     }
-        //     else {
-        //         toast.error("something went wrong", {
-        //             position: toast.POSITION.TOP_CENTER,
-        //         })
-        //     }
-        // });
         reset();
     }
 

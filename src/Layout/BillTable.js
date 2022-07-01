@@ -29,15 +29,7 @@ const BillTable = () => {
                         {/* <h2 className='bg-green-300 p-2 rounded hover:bg-green-400 cursor-pointer normal-case text-lg'>Add New Item</h2> */}
                     </div>
 
-                    {/* <div className="card-actions justify-center">
-
-                        <label
-                            // disabled={slots.length === 0}
-                            // onClick={() => setTreatment(service)}
-                            htmlFor="add-modal"
-                            className="btn btn-primary uppercase text-white font-bold bg-gradient-to-r from-secondary to-primary">Book Appointment
-                        </label>
-                    </div> */}
+                    
                 </div>
             </div>
 
