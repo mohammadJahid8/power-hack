@@ -44,26 +44,16 @@ const Bills = () => {
             setBills(data.bills);
             setTotalPages(Math.ceil(data?.totalBills / limit));
             setReload(!reload)
-
-            // console.log(bills);
         })();
     }, [limit, pageNumber, reload]);
 
     const handleDeleteItem = (id) => {
         const res = fetcher.delete(`/delete-billing/${id}`);
-        // setOrders(res.data);
         toast.success(`Bill has been deleted successfully`);
         setReload(!reload)
-        // refetch();
-        // setDeleteBill(null)
-        // setDeleteProduct(null);
-        // const remainingOrders = orders.filter((order) => order._id !== id);
-        // setOrders(remainingOrders);
-    }
-
-    const setLocal = () => {
 
     }
+    // console.log(bills?.reverse());
 
 
     return (
@@ -83,7 +73,7 @@ const Bills = () => {
                     </thead>
                     <tbody>
                         {
-                            bills?.map(bill => <>
+                            bills?.reverse().map(bill => <>
                                 <tr>
                                     <th>{bill._id}</th>
                                     <td>{bill.name}</td>

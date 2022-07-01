@@ -3,6 +3,10 @@ import AddBill from './AddBill';
 import Bills from './Bills';
 
 const BillTable = () => {
+    const handleOnChange = () => {
+
+    }
+
     return (
         <div className='mx-14'>
             <div className='bg-gray-200 rounded-md mb-4'>
